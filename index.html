@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <title>Trishoka Portfolio | Login Protected Showcase</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f5f5f7;
+      color: #111;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ========== NAVBAR ========== */
+    .navbar {
+      width: 100%;
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 5%;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .logo {
+      font-size: clamp(24px, 5vw, 30px);
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: #444;
+      transition: 0.3s;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      color: #ff4081;
+    }
+
+    /* Sign In button */
+    .btn {
+      background: #111827;
+      color: #ffffff !important;
+      padding: 10px 24px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 14px;
+      display: inline-block;
+      text-align: center;
+      border: 2px solid #111827;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      background: #ff4081;
+      border-color: #ff4081;
+      transform: translateY(-2px);
+    }
+
+    /* ========== HERO SECTION ========== */
+    .hero {
+      text-align: center;
+      padding: 60px 5% 50px;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 8vw, 60px);
+      margin-bottom: 15px;
+      color: #111827;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      max-width: 700px;
+      margin: auto;
+      font-size: clamp(14px, 4vw, 18px);
+      color: #666;
+      line-height: 1.6;
+      padding: 0 20px;
+    }
+
+    /* ========== SEARCH WRAPPER ========== */
+    .search-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+      padding: 0 20px;
+    }
+
+    .search-box {
+      flex: 1;
+      max-width: 500px;
+      min-width: 200px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 16px 24px;
+      border: none;
+      border-radius: 50px;
+      font-size: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      outline: none;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .search-box input:focus {
+      box-shadow: 0 4px 25px rgba(255, 64, 129, 0.15);
+      transform: scale(1.02);
+    }
+
+    .search-btn {
+      background: #ff4081;
+      color: white;
+      padding: 16px 32px;
+      border: none;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      font-family: 'Poppins', sans-serif;
+      white-space: nowrap;
+    }
+
+    .search-btn:hover {
+      background: #e91e63;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(233, 30, 99, 0.3);
+    }
+
+    /* ========== CATEGORIES ========== */
+    .categories {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 20px 5%;
+    }
+
+    .category {
+      padding: 10px 20px;
+      border-radius: 30px;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .category:hover {
+      background: #ff4081;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* ========== PORTFOLIO GRID ========== */
+    .portfolio {
+      padding: 40px 5% 80px;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.06);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .card img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover img {
+      transform: scale(1.05);
+    }
+
+    .card-content {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-content h3 {
+      margin-bottom: 10px;
+      font-size: clamp(18px, 5vw, 22px);
+      color: #111827;
+    }
+
+    .card-content p {
+      color: #666;
+      line-height: 1.5;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+    .tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .tag {
+      background: #f2f2f2;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    /* Edit Template Button Styles */
+    .edit-btn {
+      background: linear-gradient(135deg, #111827 0%, #2c3e50 100%);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Poppins', sans-serif;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      margin-top: 8px;
+      letter-spacing: 0.3px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .edit-btn:hover {
+      background: linear-gradient(135deg, #ff4081, #e91e63);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(255, 64, 129, 0.3);
+    }
+
+    .edit-btn:active {
+      transform: translateY(1px);
+    }
+
+    /* ========== FOOTER ========== */
+    footer {
+      background: #111827;
+      color: #fff;
+      text-align: center;
+      padding: 50px 5% 40px;
+    }
+
+    footer h2 {
+      margin-bottom: 15px;
+      font-size: clamp(20px, 5vw, 28px);
+    }
+
+    footer p {
+      color: #d1d5db;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ========== SCROLL TO TOP BUTTON ========== */
+    .scroll-top-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: #ff4081;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      opacity: 0;
+      visibility: hidden;
+      z-index: 1000;
+    }
+
+    .scroll-top-btn:hover {
+      background: #111827;
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .scroll-top-btn.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* ========== LOGIN MODAL ========== */
+    .login-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0.3s, opacity 0.3s ease;
+      padding: 20px;
+    }
+
+    .login-modal.active {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .login-container {
+      background: white;
+      max-width: 450px;
+      width: 100%;
+      padding: 40px 30px;
+      border-radius: 32px;
+      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      font-family: 'Poppins', sans-serif;
+      animation: fadeSlideUp 0.3s ease;
+      position: relative;
+    }
+
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .login-container h2 {
+      font-size: clamp(24px, 6vw, 28px);
+      margin-bottom: 10px;
+      color: #111827;
+    }
+
+    .login-container p {
+      color: #666;
+      margin-bottom: 25px;
+      font-size: 14px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .input-group label {
+      font-weight: 500;
+      font-size: 14px;
+      color: #333;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 30px;
+      font-size: 15px;
+      outline: none;
+      transition: all 0.2s ease;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .input-group input:focus {
+      border-color: #ff4081;
+      box-shadow: 0 0 0 3px rgba(255, 64, 129, 0.1);
+    }
+
+    .login-btn {
+      background: #ff4081;
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 14px;
+      border-radius: 40px;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-top: 10px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .login-btn:hover {
+      background: #e91e63;
+      transform: scale(0.98);
+    }
+
+    .close-modal {
+      background: transparent;
+      border: none;
+      font-size: 32px;
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      cursor: pointer;
+      color: #aaa;
+      transition: 0.2s;
+      line-height: 1;
+    }
+
+    .close-modal:hover {
+      color: #ff4081;
+      transform: rotate(90deg);
+    }
+
+    .demo-cred {
+      margin-top: 25px;
+      font-size: 12px;
+      background: #f5f5f7;
+      padding: 12px;
+      border-radius: 40px;
+      color: #555;
+    }
+
+    .demo-cred strong {
+      color: #ff4081;
+    }
+
+    /* ========== USER STATUS ========== */
+    .user-status {
+      background: #ff4081;
+      color: white;
+      padding: 8px 18px;
+      border-radius: 40px;
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+    }
+
+    .logout-link {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 4px 12px;
+      border-radius: 30px;
+      font-size: 12px;
+      transition: all 0.2s ease;
+    }
+
+    .logout-link:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    /* ========== RESPONSIVE BREAKPOINTS ========== */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px 5%;
+      }
+
+      .nav-links {
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .nav-links a {
+        font-size: 13px;
+      }
+
+      .hero {
+        padding: 40px 5% 30px;
+      }
+
+      .search-wrapper {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .search-box {
+        max-width: 100%;
+        width: 100%;
+      }
+
+      .search-btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .categories {
+        gap: 10px;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding-bottom: 15px;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .category {
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      .portfolio-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+      }
+
+      .card img {
+        height: 200px;
+      }
+
+      .scroll-top-btn {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+      }
+
+      .user-status {
+        font-size: 12px;
+        padding: 6px 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .login-container {
+        padding: 30px 20px;
+      }
+
+      .card-content {
+        padding: 15px;
+      }
+
+      .tags {
+        gap: 6px;
+      }
+
+      .tag {
+        font-size: 10px;
+        padding: 4px 10px;
+      }
+      
+      .edit-btn {
+        padding: 8px 14px;
+        font-size: 13px;
+      }
+    }
+
+    @media (min-width: 1400px) {
+      .portfolio {
+        padding: 60px 10%;
+      }
+      
+      .portfolio-grid {
+        gap: 40px;
+      }
+    }
+
+    /* Hide scrollbar for categories on mobile but keep functionality */
+    @media (max-width: 768px) {
+      .categories::-webkit-scrollbar {
+        height: 4px;
+      }
+      
+      .categories::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+      
+      .categories::-webkit-scrollbar-thumb {
+        background: #ff4081;
+        border-radius: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">Trishoka</div>
+    <div class="nav-links" id="navLinks">
+      <a href="#" data-protected="true">Home</a>
+      <a href="#" data-protected="true">Templates</a>
+      <a href="#" data-protected="true">Portfolio</a>
+      <a href="#" data-protected="true">Pricing</a>
+      <a href="#" data-protected="true">Contact</a>
+      <span id="authBtnContainer"></span>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Create Your Dream Portfolio</h1>
+    <p>Build stunning portfolios using modern templates, drag-and-drop editing, and beautiful responsive layouts.</p>
+    <div class="search-wrapper">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search templates or portfolios..." data-protected="true">
+      </div>
+      <button class="search-btn" id="searchButton" data-protected="true">🔍 Search</button>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="categories" id="categoriesSection">
+    <div class="category" data-protected="true">UI/UX</div>
+    <div class="category" data-protected="true">Branding</div>
+    <div class="category" data-protected="true">Animation</div>
+    <div class="category" data-protected="true">Photography</div>
+    <div class="category" data-protected="true">Web Design</div>
+    <div class="category" data-protected="true">Mobile Apps</div>
+    <div class="category" data-protected="true">Illustration</div>
+    <div class="category" data-protected="true">3D Design</div>
+  </section>
+
+  <!-- Portfolio Grid -->
+  <section class="portfolio">
+    <div class="portfolio-grid" id="portfolioGrid">
+      <!-- Card 1 -->
+      <div class="card" data-protected="true" data-template-name="Creative Designer">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085" alt="Creative Designer Portfolio">
+        <div class="card-content">
+          <h3>Creative Designer</h3>
+          <p>Modern minimal portfolio template for UI/UX designers and freelancers.</p>
+          <div class="tags"><div class="tag">Minimal</div><div class="tag">Responsive</div><div class="tag">Dark Mode</div></div>
+          <button class="edit-btn edit-template-btn" data-template="Creative Designer"><a href="temp1.html">✏️ Edit Template</a></button>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="card" data-protected="true" data-template-name="Developer Portfolio">
+        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d" alt="Developer Portfolio">
+        <div class="card-content">
+          <h3>Developer Portfolio</h3>
+          <p>Personal developer portfolio with project showcase and GitHub integration.</p>
+          <div class="tags"><div class="tag">Developer</div><div class="tag">Portfolio</div><div class="tag">Modern</div></div>
+          <button class="edit-btn edit-template-btn" data-template="Developer Portfolio"><a href="temp2.html">✏️ Edit Template</a></button>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="card" data-protected="true" data-template-name="Agency Template">
+        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0" alt="Agency Template">
+        <div class="card-content">
+          <h3>Agency Template</h3>
+          <p>Elegant agency portfolio layout with premium branding sections.</p>
+          <div class="tags"><div class="tag">Agency</div><div class="tag">Creative</div><div class="tag">Premium</div></div>
+          <button class="edit-btn edit-template-btn" data-template="Agency Template"><a href="temp3.html">✏️ Edit Template</a></button>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="card" data-protected="true" data-template-name="Photography Master">
+        <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32" alt="Photography Portfolio">
+        <div class="card-content">
+          <h3>Photography Master</h3>
+          <p>Stunning gallery-focused portfolio for photographers & visual artists.</p>
+          <div class="tags"><div class="tag">Photography</div><div class="tag">Gallery</div><div class="tag">Lightbox</div></div>
+          <button class="edit-btn edit-template-btn" data-template="Photography Master"><a href="temp4.html">✏️ Edit Template</a></button>
+        </div>
+      </div>
+      <!-- Card 5 -->
+      <div class="card" data-protected="true" data-template-name="Branding Studio">
+        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5" alt="Branding Studio">
+        <div class="card-content">
+          <h3>Branding Studio</h3>
+          <p>Identity & brand design template with case study sections.</p>
+          <div class="tags"><div class="tag">Branding</div><div class="tag">Case Study</div><div class="tag">Elegant</div></div>
+          <button class="edit-btn edit-template-btn" data-template="Branding Studio"><a href="temp5.html">✏️ Edit Template</a></button>
+        </div>
+      </div>
+      <!-- Card 6 -->
+      <div class="card" data-protected="true" data-template-name="Motion Graphics">
+        <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9" alt="Motion Graphics">
+        <div class="card-content">
+          <h3>Motion Graphics</h3>
+          <p>Animation & motion design portfolio with video embeds.</p>
+          <div class="tags"><div class="tag">Animation</div><div class="tag">Video</div><div class="tag">Showreel</div></div>
+          <button class="edit-btn edit-template-btn" data-template="Motion Graphics"><a href="temp6.html">✏️ Edit Template</a></button>
+        </div>
+      </div>
+      <!-- Card 7 -->
+      <div class="card" data-protected="true" data-template-name="E‑commerce Creator">
+        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8" alt="E-commerce Portfolio">
+        <div class="card-content">
+          <h3>E‑commerce Creator</h3>
+          <p>Product-focused portfolio with shop integration and reviews.</p>
+          <div class="tags"><div class="tag">E‑commerce</div><div class="tag">Shop</div><div class="tag">Product</div></div>
+          <button class="edit-btn edit-template-btn" data-template="E‑commerce Creator"><a href="temp7.html">✏️ Edit Template</a></button>
+        </div>
+      </div>
+      <!-- Card 8 -->
+      <div class="card" data-protected="true" data-template-name="Architecture Vision">
+        <img src="https://images.unsplash.com/photo-1486718448742-163732cd1544" alt="Architecture Vision">
+        <div class="card-content">
+          <h3>Architecture Vision</h3>
+          <p>Bold portfolio for architects & interior designers and reviews.</p>
+          <div class="tags"><div class="tag">Architecture</div><div class="tag">Design</div><div class="tag">Blueprint</div></div>
+          <button class="edit-btn edit-template-btn" data-template="Architecture Vision"><a href="temp8.html">✏️ Edit Template</a></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <h2>Trishoka Portfolio Builder</h2>
+    <p>Create beautiful online portfolios with templates and advanced customization.</p>
+    <p style="margin-top: 15px; font-size: 12px;">© 2024 Trishoka. All rights reserved.</p>
+  </footer>
+
+  <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Scroll to top">↑</button>
+
+  <!-- LOGIN MODAL POPUP -->
+  <div id="loginModal" class="login-modal">
+    <div class="login-container">
+      <button class="close-modal" id="closeModalBtn">&times;</button>
+      <h2>Welcome Back</h2>
+      <p>Please sign in to explore templates, search, and interact with content.</p>
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" id="loginEmail" placeholder="demo@trishoka.com">
+      </div>
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" id="loginPassword" placeholder="any password (demo)">
+      </div>
+      <button class="login-btn" id="performLoginBtn">Sign In</button>
+      <div class="demo-cred">
+        🔓 <strong>Demo mode:</strong> click "Sign In" with any email/password or leave blank → Instant access
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      let isLoggedIn = false;
+
+      const loginModal = document.getElementById('loginModal');
+      const closeModalBtn = document.getElementById('closeModalBtn');
+      const performLogin = document.getElementById('performLoginBtn');
+      const loginEmail = document.getElementById('loginEmail');
+      const loginPassword = document.getElementById('loginPassword');
+      const authBtnContainer = document.getElementById('authBtnContainer');
+
+      // Notification system
+      function showNotification(message, type = 'success') {
+        const notification = document.createElement('div');
+        notification.textContent = message;
+        notification.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: ${type === 'success' ? '#10b981' : '#3b82f6'};
+          color: white;
+          padding: 12px 24px;
+          border-radius: 12px;
+          font-size: 14px;
+          font-weight: 500;
+          z-index: 10000;
+          animation: slideIn 0.3s ease;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        `;
+        document.body.appendChild(notification);
+        setTimeout(() => {
+          notification.style.animation = 'slideOut 0.3s ease';
+          setTimeout(() => notification.remove(), 300);
+        }, 3000);
+      }
+
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes slideIn {
+          from { transform: translateX(100%); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOut {
+          from { transform: translateX(0); opacity: 1; }
+          to { transform: translateX(100%); opacity: 0; }
+        }
+      `;
+      document.head.appendChild(style);
+
+      function showLoginModal() { loginModal.classList.add('active'); }
+      function hideLoginModal() { loginModal.classList.remove('active'); }
+      function attemptLogin() { isLoggedIn = true; hideLoginModal(); updateAuthUI(); showNotification("Login successful! You can now edit templates and interact.", "success"); }
+
+      function updateAuthUI() {
+        if (isLoggedIn) {
+          authBtnContainer.innerHTML = `<div class="user-status">✅ Logged in <button class="logout-link" id="logoutBtn">Logout</button></div>`;
+          document.getElementById('logoutBtn')?.addEventListener('click', () => { isLoggedIn = false; updateAuthUI(); showNotification("Logged out successfully!", "info"); });
+        } else {
+          authBtnContainer.innerHTML = `<a href="#" class="btn" id="dynamicSignInBtn">Sign In</a>`;
+          document.getElementById('dynamicSignInBtn')?.addEventListener('click', (e) => { e.preventDefault(); showLoginModal(); });
+        }
+      }
+
+      // Protected interaction handler (global)
+      function protectInteraction(e) {
+        if (isLoggedIn) return true;
+        const protectedSelectors = ['.category', '.card', '.search-btn', '.search-box input', '.nav-links a:not(#dynamicSignInBtn)', '.edit-template-btn'];
+        let needsProtection = protectedSelectors.some(sel => e.target.closest(sel));
+        if (e.target.closest('[data-protected="true"]')) needsProtection = true;
+        if (needsProtection) { e.preventDefault(); e.stopPropagation(); showLoginModal(); return false; }
+        return true;
+      }
+
+      document.addEventListener('click', (e) => {
+        if (loginModal?.classList.contains('active')) return;
+        if (e.target.closest('#logoutBtn')) return;
+        if (!isLoggedIn) protectInteraction(e);
+      });
+
+      // SEARCH functionality
+      const searchInput = document.getElementById('searchInput');
+      const searchButton = document.getElementById('searchButton');
+      function handleSearchAction() {
+        if (!isLoggedIn) { showLoginModal(); return; }
+        const term = searchInput.value.trim().toLowerCase();
+        const cards = document.querySelectorAll('.card');
+        let visible = 0;
+        cards.forEach(card => {
+          const text = card.innerText.toLowerCase();
+          if (!term || text.includes(term)) { card.style.display = 'flex'; visible++; } 
+          else { card.style.display = 'none'; }
+        });
+        showNotification(term ? `Found ${visible} result(s) for "${term}"` : "Showing all portfolios", "success");
+      }
+      searchButton?.addEventListener('click', (e) => { if (!isLoggedIn) { e.preventDefault(); showLoginModal(); return; } handleSearchAction(); });
+      searchInput?.addEventListener('keypress', (e) => { if (e.key === 'Enter') { if (!isLoggedIn) { e.preventDefault(); showLoginModal(); return; } handleSearchAction(); } });
+
+      // Categories filter
+      document.querySelectorAll('.category').forEach(cat => {
+        cat.addEventListener('click', (e) => {
+          if (!isLoggedIn) { e.preventDefault(); showLoginModal(); return; }
+          const category = cat.innerText.toLowerCase();
+          const cards = document.querySelectorAll('.card');
+          let visible = 0;
+          cards.forEach(card => {
+            if (card.innerText.toLowerCase().includes(category)) { card.style.display = 'flex'; visible++; } 
+            else { card.style.display = 'none'; }
+          });
+          showNotification(`Showing ${visible} portfolios in "${cat.innerText}"`, "success");
+        });
+      });
+
+      // EDIT TEMPLATE BUTTON HANDLER (for all 8 cards)
+      function attachEditEvents() {
+        const editButtons = document.querySelectorAll('.edit-template-btn');
+        editButtons.forEach(btn => {
+          btn.removeEventListener('click', handleEditClick);
+          btn.addEventListener('click', handleEditClick);
+        });
+      }
+
+      function handleEditClick(e) {
+        e.stopPropagation();
+        if (!isLoggedIn) {
+          showLoginModal();
+          return;
+        }
+        const templateName = e.currentTarget.getAttribute('data-template') || 'Template';
+        showNotification(`✨ Opening "${templateName}" editor — customize colors, layout & content!`, "success");
+        // Simulate editor experience
+        setTimeout(() => {
+          alert(`🎨 EDITOR LAUNCHED: ${templateName}\n\nYou can now modify:\n- Color scheme\n- Typography\n- Layout sections\n- Images & content\n\n(Full drag-drop editor in production)`);
+        }, 50);
+      }
+
+      // Nav demo
+      document.querySelectorAll('.nav-links a:not(#dynamicSignInBtn)').forEach(link => {
+        link.addEventListener('click', (e) => {
+          if (!isLoggedIn) { e.preventDefault(); showLoginModal(); return; }
+          e.preventDefault();
+          showNotification(`📁 Navigation: ${link.innerText} (demo)`, "info");
+        });
+      });
+
+      // Card click (still shows preview, but edit button is primary)
+      document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('click', (e) => {
+          if (e.target.classList.contains('edit-template-btn')) return;
+          if (!isLoggedIn) { showLoginModal(); return; }
+          const title = card.querySelector('h3')?.innerText || 'Portfolio';
+          showNotification(`🔍 Preview: ${title} (click Edit to customize)`, "info");
+        });
+      });
+
+      // Modal handlers
+      closeModalBtn?.addEventListener('click', hideLoginModal);
+      performLogin?.addEventListener('click', attemptLogin);
+      loginModal?.addEventListener('click', (e) => { if (e.target === loginModal) hideLoginModal(); });
+      [loginEmail, loginPassword].forEach(field => field?.addEventListener('keypress', (e) => { if (e.key === 'Enter') attemptLogin(); }));
+
+      // Scroll to top
+      const scrollBtn = document.getElementById('scrollTopBtn');
+      window.addEventListener('scroll', () => { if (window.scrollY > 300) scrollBtn?.classList.add('show'); else scrollBtn?.classList.remove('show'); });
+      scrollBtn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+      
+      updateAuthUI();
+      attachEditEvents();
+    })();
+  </script>
+</body>
+</html>
